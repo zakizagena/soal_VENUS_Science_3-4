@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz 04 — Aafiyah Science Champion: Sungai Bersih</title>
+<style>
+:root{--ink:#19345b;--blue:#43b9ef;--yellow:#ffd84d;--pink:#ff8db3;--green:#72d6a0;--purple:#b6a0ff;--paper:#fffdf7}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);background:linear-gradient(140deg,#dff7ff,#fff4d9 45%,#f9e6ff);min-height:100vh}
+.wrap{max-width:980px;margin:auto;padding:18px}
+.hero{border:5px solid white;border-radius:28px;padding:25px 22px;text-align:center;background:linear-gradient(135deg,#2ab6ec,#5bd7b2);box-shadow:0 8px 0 #8acde0,0 12px 24px #315d7522;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#ffffff30;width:140px;height:140px;top:-55px;left:-20px}.hero:after{left:auto;right:-25px;top:auto;bottom:-80px}
+.eyebrow{font-weight:900;letter-spacing:1.4px;color:#fff8cb;text-transform:uppercase}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);line-height:1.05;margin:8px 0;color:white;text-shadow:3px 4px 0 #176a9c}
+.hero p{font-weight:700;color:#103c61;margin:12px auto 0;max-width:650px}
+.mascot{font-size:2.4rem;display:inline-block;background:white;border-radius:50%;width:70px;height:70px;line-height:70px;box-shadow:0 4px 0 #a8e7ff;margin-bottom:8px}
+.progress-card,.quiz-card,.result-card{background:white;border:3px solid #fff;border-radius:24px;padding:20px;margin:18px 0;box-shadow:0 6px 0 #c5e5ef,0 10px 20px #34536b12}
+.progress-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:900}
+.progress-track{height:14px;background:#e8f3fb;border-radius:20px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#49c4f1,#69dba2);transition:width .25s}
+.level-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.level{border:3px solid white;border-radius:18px;padding:13px 8px;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #c7d6e2;background:#e9f8ff;color:var(--ink)}
+.level:nth-child(2){background:#fff1b8}.level:nth-child(3){background:#f1e6ff}
+.level.active{outline:4px solid #328fc5;transform:translateY(-2px)}
+.question-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.number{flex:0 0 48px;height:48px;border-radius:16px;background:var(--yellow);display:grid;place-items:center;font-size:1.35rem;font-weight:1000;box-shadow:0 4px 0 #e5b62b}
+.badge{font-size:.78rem;font-weight:900;border-radius:20px;padding:7px 12px;background:#e7f8ff}
+h2{font-size:1.25rem;margin:0 0 12px;line-height:1.35}
+.question-text{font-size:1.05rem;line-height:1.55;margin:12px 0 16px}
+.options{display:grid;gap:10px}
+.option{display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border:2px solid #dcecf4;border-radius:16px;cursor:pointer;background:#fbfdff;transition:.15s}
+.option:hover{border-color:#54bfe9;background:#f0fbff;transform:translateY(-1px)}
+.option.selected{border-color:#218ec2;background:#e5f7ff;box-shadow:inset 0 0 0 1px #218ec2}
+.letter{width:31px;height:31px;flex:0 0 31px;border-radius:10px;background:#dff3ff;display:grid;place-items:center;font-weight:1000}
+.option.selected .letter{background:#218ec2;color:white}
+.option input{position:absolute;opacity:0;pointer-events:none}
+.qnote{font-size:.88rem;color:#607a91;margin-top:12px;font-weight:700}
+.controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin:18px 0}
+button{font:inherit;font-weight:900;border:0;border-radius:15px;padding:13px 18px;cursor:pointer;transition:.15s}
+button:hover{transform:translateY(-2px);filter:brightness(1.02)}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-primary{background:#ffcb3d;color:#573f00;box-shadow:0 4px 0 #dca51d}
+.btn-blue{background:#3db8ed;color:white;box-shadow:0 4px 0 #2183b3}
+.btn-light{background:#edf6fa;color:#38556b;box-shadow:0 4px 0 #c8dce6}
+.btn-submit{background:#ff83ab;color:#6c1740;box-shadow:0 4px 0 #d95b88;font-size:1.05rem}
+.hidden{display:none!important}
+.result-card{text-align:center;background:linear-gradient(145deg,#fff,#f4fff9)}
+.score-big{font-size:3.4rem;font-weight:1000;color:#168fbd;margin:5px}
+.result-list{text-align:left;display:grid;gap:12px;margin-top:18px}
+.review{border-radius:16px;padding:14px;border:2px solid #e0edf2}
+.review.correct{background:#e8fff2;border-color:#83d9a8}.review.wrong{background:#fff0f4;border-color:#f4a3bd}.review.unanswered{background:#fff9df;border-color:#f0d46b}
+.review strong{display:block;margin-bottom:6px}
+footer{text-align:center;padding:12px;color:#5e7b8f;font-size:.85rem}
+@media(max-width:560px){.wrap{padding:10px}.hero{padding:20px 12px}.progress-card,.quiz-card,.result-card{padding:15px}.level-tabs{gap:7px}.level{font-size:.88rem;padding:11px 5px}.controls button{flex:1}.question-head{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav style="display:flex;gap:9px;flex-wrap:wrap;margin:0 0 14px"><a href="index.html" style="display:inline-block;text-decoration:none;background:#29245f;color:white;font-weight:900;padding:11px 15px;border-radius:13px">🏠 Menu Utama</a><a href="soal-04.html" style="display:inline-block;text-decoration:none;background:#29245f;color:white;font-weight:900;padding:11px 15px;border-radius:13px">↩️ Pilihan Belajar Soal 04</a><a href="materi-04.html" style="display:inline-block;text-decoration:none;background:#29245f;color:white;font-weight:900;padding:11px 15px;border-radius:13px">📘 Materi</a><a href="bahas-soal-04.html" style="display:inline-block;text-decoration:none;background:#29245f;color:white;font-weight:900;padding:11px 15px;border-radius:13px">🧠 Pembahasan</a></nav>
+<header class="hero">
+  <div class="mascot" aria-hidden="true">🧕🏻</div>
+  <div class="eyebrow">Aafiyah Science Champion</div>
+  <h1>🌊 Sungai Bersih,<br>Desa Bebas Banjir! 🏡</h1>
+  <p>10 tantangan sains tentang sampah, aliran sungai, pencemaran, dan cara mencegah banjir. Pilih levelmu dan jadilah Detektif Sains!</p>
+</header>
+
+<section class="progress-card">
+  <div class="progress-top"><span id="levelTitle">🟢 Level Mudah</span><span id="count">Soal 1 dari 10</span></div>
+  <div class="progress-track"><div class="progress-fill" id="progress"></div></div>
+  <div class="level-tabs" role="group" aria-label="Pilih tingkat kesulitan">
+    <button class="level active" data-level="mudah">🟢 Mudah<br><small>1–3</small></button>
+    <button class="level" data-level="sedang">🟡 Sedang<br><small>4–7</small></button>
+    <button class="level" data-level="sulit">🔴 Sulit<br><small>8–10</small></button>
+  </div>
+  <p style="margin:0;color:#5b768d;font-size:.92rem">💡 Kamu boleh mengubah pilihan kapan saja sebelum menekan <b>Final Submit</b>. Jawaban tidak langsung dinilai.</p>
+</section>
+
+<main id="quiz"></main>
+<div class="controls" id="navControls">
+  <button class="btn-light" id="prev">⬅️ Sebelumnya</button>
+  <button class="btn-blue" id="next">Berikutnya ➡️</button>
+  <button class="btn-submit" id="submit">🏆 Final Submit</button>
+</div>
+
+<section class="result-card hidden" id="results" aria-live="polite">
+  <div style="font-size:3rem">🏆✨</div>
+  <h2>Hasil Misi Detektif Sains!</h2>
+  <div class="score-big" id="score">0/10</div>
+  <p id="feedback"></p>
+  <div class="result-list" id="reviewList"></div>
+  <div class="controls" style="justify-content:center">
+    <button class="btn-primary" id="retry">🔁 Kerjakan Ulang Quiz</button>
+    <button class="btn-blue" id="editAnswers">✏️ Periksa & Ubah Jawaban</button>
+  </div>
+</section>
+<footer>🌱 Ingat: solusi terbaik adalah mengatasi penyebab masalah, bukan hanya akibatnya. Semangat belajar, Aafiyah!</footer>
+</div>
+
+<script>
+const questions = [
+{n:1,level:"mudah",tag:"Dasar",text:"Sungai di sebuah desa dipenuhi botol plastik dan kantong sampah. Apa yang sebaiknya dilakukan warga?",opts:["Membuang sampah ke bagian sungai yang lebih jauh","Membuang sampah ke tempat sampah yang layak","Mendorong sampah agar mengalir ke desa lain","Menutup sungai dengan papan"],ans:1,why:"Sampah harus dibuang pada tempatnya agar tidak mencemari dan menyumbat aliran sungai."},
+{n:2,level:"mudah",tag:"Dasar",text:"Mengapa tumpukan sampah di sungai dapat memperparah banjir saat hujan deras?",opts:["Sampah membuat air sungai berubah menjadi es","Sampah membuat sungai semakin dalam","Sampah dapat menghambat aliran air sehingga air lebih mudah meluap","Sampah menghentikan hujan"],ans:2,why:"Sampah yang menyumbat aliran mengurangi kelancaran air. Saat debit air meningkat, air lebih mudah meluap."},
+{n:3,level:"mudah",tag:"Dasar",text:"Tindakan manakah yang membantu menjaga sungai tetap bersih?",opts:["Menyediakan tempat sampah dan tidak membuang limbah ke sungai","Mencuci semua sampah di sungai","Membuang plastik setelah malam hari","Membiarkan sampah menumpuk di tepi sungai"],ans:0,why:"Tempat sampah yang layak dan kebiasaan tidak membuang sampah ke sungai membantu mencegah pencemaran dan sumbatan."},
+{n:4,level:"sedang",tag:"Menengah",text:"Sebuah desa sering banjir. Penelitian menunjukkan sungai tersumbat plastik dan limbah rumah tangga. Solusi yang paling tepat adalah ...",opts:["Mengurangi kegiatan menimba air dari sungai","Melarang warga membuang sampah dan limbah ke sungai serta menyediakan tempat pembuangan yang layak","Membatasi anak bermain di sungai saja","Membiarkan sungai karena banjir hanya disebabkan hujan"],ans:1,why:"Solusi terbaik langsung mengatasi penyebab yang ditemukan: sampah dan limbah yang menyumbat sungai."},
+{n:5,level:"sedang",tag:"Menengah",text:"Dua tindakan diusulkan untuk mengurangi banjir. Tindakan A: melarang pembuangan sampah ke sungai dan menyediakan tempat sampah. Tindakan B: melarang anak bermain di sungai. Mana yang paling sesuai dengan penyebab banjir pada kasus ini?",opts:["Tindakan A, karena mengatasi sampah penyumbat sungai","Tindakan B, karena anak-anak selalu menyebabkan banjir","Keduanya tidak berhubungan dengan masalah","Tindakan B, karena sungai harus sepi"],ans:0,why:"Tindakan A berhubungan langsung dengan penyebab yang diamati. Membatasi anak bermain tidak menyelesaikan sumbatan sampah."},
+{n:6,level:"sedang",tag:"Menengah",text:"Warga sudah membersihkan sampah yang terlihat, tetapi beberapa hari kemudian sungai kembali kotor. Apa langkah lanjutan yang paling masuk akal?",opts:["Berhenti membersihkan sungai","Membuang sampah hanya ketika tidak hujan","Membuat aturan, menyediakan tempat sampah, dan mengelola limbah rumah tangga dengan benar","Menutup semua jalan menuju sungai"],ans:2,why:"Pembersihan saja tidak cukup jika sumber sampah tetap masuk. Pencegahan dan pengelolaan limbah diperlukan agar masalah tidak berulang."},
+{n:7,level:"sedang",tag:"Menengah+",text:"Perhatikan urutan berikut: sampah menumpuk → aliran sungai terhambat → hujan deras → air meluap. Pernyataan yang paling tepat adalah ...",opts:["Sampah selalu membuat hujan turun","Air meluap karena sungai tidak menerima air hujan","Sampah dapat menjadi salah satu penyebab banjir karena menghambat aliran air","Banjir terjadi hanya karena warga mengambil air"],ans:2,why:"Urutan tersebut menunjukkan hubungan sebab-akibat. Hujan menambah volume air, sementara sumbatan menghambat alirannya."},
+{n:8,level:"sulit",tag:"Olimpiade",text:"Setelah hujan deras, desa A banjir. Sungai A tersumbat sampah, sedangkan sungai B yang lebih lancar tidak meluap pada kondisi pengamatan yang sama. Kesimpulan paling masuk akal adalah ...",opts:["Sampah pasti satu-satunya penyebab semua banjir","Sumbatan sampah mungkin berperan dalam banjir di desa A","Hujan tidak memengaruhi tinggi air sungai","Sungai yang bersih tidak pernah bisa banjir"],ans:1,why:"Data mendukung bahwa sumbatan mungkin berperan, tetapi tidak membuktikan bahwa sampah satu-satunya penyebab semua banjir."},
+{n:9,level:"sulit",tag:"Olimpiade",text:"Warga ingin mengetahui apakah tumpukan sampah menghambat aliran air. Pengamatan sederhana mana yang paling membantu?",opts:["Menghitung warna rumah di dekat sungai","Membandingkan kelancaran aliran pada bagian yang tersumbat dan bagian yang tidak tersumbat, dengan kondisi pengamatan yang sebanding","Menanyakan makanan kesukaan warga","Mengukur tinggi pohon jauh dari sungai"],ans:1,why:"Perbandingan pada kondisi yang sebanding lebih relevan untuk menguji hubungan antara sumbatan dan kelancaran aliran."},
+{n:10,level:"sulit",tag:"Tantangan Juara",text:"Desa mengalami banjir berulang. Sampah plastik dan limbah rumah tangga ditemukan menyumbat sungai. Pilih rencana yang paling lengkap dan sesuai bukti.",opts:["Membersihkan sungai sekali saja, lalu tidak melakukan tindakan lain","Membatasi warga mengambil air sungai","Mengatasi sumber sampah, menyediakan fasilitas pembuangan, mengelola limbah, dan memantau kebersihan sungai","Menyalahkan hujan dan tidak mengubah kebiasaan warga"],ans:2,why:"Rencana yang baik mengatasi penyebab, menyediakan sarana, mengelola limbah, dan mencegah masalah muncul kembali."}
+];
+let current=0, answers=Array(questions.length).fill(null), submitted=false, chosenLevel="mudah";
+const quiz=document.getElementById("quiz");
+function render(){
+ const q=questions[current];
+ document.getElementById("levelTitle").textContent=({mudah:"🟢 Level Mudah",sedang:"🟡 Level Sedang",sulit:"🔴 Level Sulit"})[q.level];
+ document.getElementById("count").textContent=`Soal ${current+1} dari ${questions.length}`;
+ document.getElementById("progress").style.width=((current+1)/questions.length*100)+"%";
+ document.querySelectorAll(".level").forEach(b=>b.classList.toggle("active",b.dataset.level===q.level));
+ quiz.innerHTML=`<section class="quiz-card"><div class="question-head"><div class="number">${q.n}</div><div><span class="badge">${q.tag}</span><div style="font-size:.82rem;color:#7890a3;font-weight:800;margin-top:5px">${q.level.toUpperCase()}</div></div></div><div class="question-text">${q.text}</div><div class="options">${q.opts.map((o,i)=>`<label class="option ${answers[current]===i?'selected':''}"><input type="radio" name="q${q.n}" value="${i}" ${answers[current]===i?'checked':''}><span class="letter">${"ABCD"[i]}</span><span>${o}</span></label>`).join("")}</div><div class="qnote">${answers[current]===null?"📝 Pilih satu jawaban. Kamu masih bisa mengubahnya sebelum final submit.":"✅ Pilihan tersimpan sementara — belum dinilai."}</div></section>`;
+ quiz.querySelectorAll(".option").forEach((el,i)=>el.addEventListener("click",()=>{if(submitted)return;answers[current]=i;render()}));
+ document.getElementById("prev").disabled=current===0;
+ document.getElementById("next").disabled=current===questions.length-1;
+}
+document.querySelectorAll(".level").forEach(b=>b.addEventListener("click",()=>{const first=questions.findIndex(q=>q.level===b.dataset.level);if(first>=0){current=first;render()}}));
+document.getElementById("prev").addEventListener("click",()=>{if(current>0){current--;render()}});
+document.getElementById("next").addEventListener("click",()=>{if(current<questions.length-1){current++;render()}});
+document.getElementById("submit").addEventListener("click",()=>{
+ const empty=answers.filter(a=>a===null).length;
+ if(empty && !confirm(`Masih ada ${empty} soal yang belum dijawab. Tetap kumpulkan jawaban?`))return;
+ submitted=true;
+ const score=questions.reduce((s,q,i)=>s+(answers[i]===q.ans?1:0),0);
+ document.getElementById("score").textContent=`${score}/10`;
+ document.getElementById("feedback").textContent=score>=9?"Luar biasa! Kamu berpikir seperti Juara Sains! 🥇":score>=7?"Hebat! Periksa kembali penjelasan untuk memperkuat konsep. 🌟":score>=5?"Bagus, terus berlatih! Baca pembahasan setiap soal dengan teliti. 💪":"Jangan menyerah! Pelajari pembahasan lalu coba lagi. 🌱";
+ document.getElementById("reviewList").innerHTML=questions.map((q,i)=>{let cls=answers[i]===null?"unanswered":answers[i]===q.ans?"correct":"wrong";return `<div class="review ${cls}"><strong>Soal ${q.n} — ${answers[i]===null?"Belum dijawab":answers[i]===q.ans?"Benar! 🎉":"Belum tepat"}</strong><div><b>Jawaban benar: ${"ABCD"[q.ans]}.</b> ${q.opts[q.ans]}</div><div style="margin-top:6px">${q.why}</div></div>`}).join("");
+ document.getElementById("results").classList.remove("hidden");document.getElementById("navControls").classList.add("hidden");document.querySelector(".progress-card").classList.add("hidden");document.getElementById("results").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("retry").addEventListener("click",()=>{answers=Array(questions.length).fill(null);current=0;submitted=false;document.getElementById("results").classList.add("hidden");document.getElementById("navControls").classList.remove("hidden");document.querySelector(".progress-card").classList.remove("hidden");render();window.scrollTo({top:0,behavior:"smooth"})});
+document.getElementById("editAnswers").addEventListener("click",()=>{submitted=false;document.getElementById("results").classList.add("hidden");document.getElementById("navControls").classList.remove("hidden");document.querySelector(".progress-card").classList.remove("hidden");current=0;render();window.scrollTo({top:0,behavior:"smooth"})});
+render();
+</script>
+</body>
+</html>
