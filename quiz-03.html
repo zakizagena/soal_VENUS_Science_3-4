@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Soal 03 — Gigi Taring | Aafiyah Science Champion</title>
+<style>
+:root{--ink:#20304a;--pink:#ff5b9b;--purple:#7958d8;--blue:#37b8e8;--yellow:#ffd65a;--green:#41c98b;--bg:#f3f8ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,#e8f8ff,#fff1f7 48%,#fff9dc);min-height:100vh}
+header{padding:28px 16px 22px;text-align:center;background:linear-gradient(120deg,#5a7df0,#9b59d8 55%,#ff69a8);color:white;border-radius:0 0 32px 32px;box-shadow:0 8px 24px #4b5ba533}
+.badge{display:inline-block;background:#fff;color:#6548c7;font-weight:900;padding:7px 14px;border-radius:30px;font-size:.82rem;letter-spacing:.4px}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);margin:12px 0 8px;text-shadow:0 3px 0 #3b3f8b55}
+header p{margin:0 auto;max-width:700px;font-size:1.02rem;line-height:1.5}
+.wrap{max-width:920px;margin:22px auto;padding:0 14px 40px}
+.info-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.info{background:#fff;border:2px solid #ffffff;border-radius:18px;padding:12px;text-align:center;box-shadow:0 5px 14px #3e5b8814;font-weight:800}
+.info span{display:block;font-size:1.35rem;margin-bottom:4px}
+.progress-shell{height:12px;background:#dfe8f8;border-radius:99px;overflow:hidden;margin:14px 0 22px}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#3bc8e7,#8b68e9,#ff6eaa);transition:width .2s}
+.level-title{display:flex;align-items:center;gap:10px;margin:24px 0 12px;font-size:1.3rem;font-weight:900}
+.level-title .emoji{font-size:1.6rem}
+.question{background:white;border-radius:22px;padding:18px;margin:12px 0;border:2px solid #e8edfa;box-shadow:0 6px 18px #384c7010}
+.question.easy{border-left:7px solid var(--green)}.question.medium{border-left:7px solid #ffb83e}.question.hard{border-left:7px solid var(--pink)}
+.qhead{display:flex;align-items:flex-start;gap:10px}
+.num{flex:0 0 38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,#6a7df2,#a55bdd)}
+.level{margin-left:auto;white-space:nowrap;font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:20px}
+.easy .level{background:#dff9ed;color:#16845a}.medium .level{background:#fff1ce;color:#a56500}.hard .level{background:#ffe1ee;color:#b82b68}
+.qtext{font-size:1.05rem;font-weight:800;line-height:1.5;margin:3px 0 14px}
+.options{display:grid;gap:9px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:2px solid #e5eaf5;border-radius:14px;cursor:pointer;transition:.15s;background:#fbfcff;line-height:1.4}
+.option:hover{border-color:#a99ae9;background:#f7f4ff}
+.option:has(input:checked){border-color:#8167df;background:#f0ebff;box-shadow:0 0 0 2px #8167df18}
+.option input{accent-color:#7958d8;margin-top:3px;transform:scale(1.15)}
+.option .letter{font-weight:900;color:#7555cf;min-width:20px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:24px 0}
+button{border:0;border-radius:15px;padding:13px 20px;font-size:1rem;font-weight:900;cursor:pointer;transition:transform .12s,filter .12s}
+button:hover{transform:translateY(-2px);filter:brightness(1.03)}
+.primary{color:white;background:linear-gradient(100deg,#7658dc,#f05caa);box-shadow:0 5px 0 #573cb4}
+.secondary{background:#fff;color:#6548c7;border:2px solid #d8d0fb}
+.result{display:none;background:white;border-radius:24px;padding:22px;border:3px solid #d9d1ff;box-shadow:0 8px 25px #4b5ba522;margin:20px 0}
+.result h2{text-align:center;margin:0 0 8px;color:#694ed1}
+.score{font-size:2.6rem;font-weight:1000;text-align:center;color:#ed5299}
+.result-note{text-align:center;font-size:1.05rem;line-height:1.5}
+.review{margin-top:18px}
+.review-item{padding:14px;border-radius:15px;margin:10px 0;background:#f7f9ff;border-left:5px solid #a8b2ce}
+.review-item.correct{border-left-color:#32bd82}.review-item.wrong{border-left-color:#f05c80}
+.review-item h3{font-size:1rem;margin:0 0 7px}
+.review-item p{margin:5px 0;line-height:1.45}
+footer{text-align:center;padding:18px;color:#5d6c86;font-size:.9rem}
+@media(max-width:600px){.info-row{gap:6px}.info{font-size:.8rem;padding:10px 5px}.info span{font-size:1.15rem}.question{padding:14px}.level{font-size:.68rem}.qtext{font-size:1rem}}
+</style>
+</head>
+<body>
+<nav style="max-width:920px;margin:14px auto 0;padding:0 14px;display:flex;gap:9px;flex-wrap:wrap"><a href="index.html" style="display:inline-block;text-decoration:none;background:#29245f;color:#fff;font-weight:850;padding:11px 15px;border-radius:13px">🏠 Menu Utama</a><a href="soal-03.html" style="display:inline-block;text-decoration:none;background:#29245f;color:#fff;font-weight:850;padding:11px 15px;border-radius:13px">↩ Pilihan Soal 03</a><a href="materi-03.html" style="display:inline-block;text-decoration:none;background:#29245f;color:#fff;font-weight:850;padding:11px 15px;border-radius:13px">📘 Baca Materi</a><a href="bahas-soal-03.html" style="display:inline-block;text-decoration:none;background:#29245f;color:#fff;font-weight:850;padding:11px 15px;border-radius:13px">🧠 Pembahasan Soal</a></nav>
+<header>
+  <div class="badge">🏆 AAFIYAH SCIENCE CHAMPION</div><div style="margin:12px auto 0"><img src="assets/aafiyah-logo.png" alt="Logo Aafiyah Science Champion" style="width:82px;height:82px;object-fit:contain;background:#fff;border-radius:18px;padding:4px"></div>
+  <h1>🦷 QUIZ SERU: GIGI TARING!</h1>
+  <p>15 tantangan tentang gigi hewan dan fungsinya. Pilih jawabanmu dengan tenang—kamu boleh mengubah pilihan sebelum menekan <b>Nilai Jawaban</b>!</p>
+</header>
+<main class="wrap">
+  <div class="info-row">
+    <div class="info"><span>🌱</span>5 Soal Mudah</div>
+    <div class="info"><span>🚀</span>5 Soal Sedang</div>
+    <div class="info"><span>🧠</span>5 Soal Sulit</div>
+  </div>
+  <div><b>Progres pengerjaan:</b> <span id="progressText">0 dari 15 dijawab</span></div>
+  <div class="progress-shell"><div class="progress" id="progress"></div></div>
+  <form id="quizForm">
+    <div class="level-title"><span class="emoji">🌱</span> LEVEL 1 — PEMANASAN MUDAH</div>
+    <div id="easyQuestions"></div>
+    <div class="level-title"><span class="emoji">🚀</span> LEVEL 2 — TANTANGAN SEDANG</div>
+    <div id="mediumQuestions"></div>
+    <div class="level-title"><span class="emoji">🧠</span> LEVEL 3 — DETEKTIF SAINS SULIT</div>
+    <div id="hardQuestions"></div>
+    <div class="controls">
+      <button class="primary" type="button" id="submitBtn">🎯 Nilai Jawaban</button>
+      <button class="secondary" type="button" id="resetBtn">🔄 Kerjakan Ulang Quiz</button>
+    </div>
+  </form>
+  <section class="result" id="result" aria-live="polite">
+    <h2>🎉 Hasil Quiz Aafiyah</h2>
+    <div class="score" id="score"></div>
+    <p class="result-note" id="resultNote"></p>
+    <div class="review" id="review"></div>
+    <div class="controls"><button class="primary" type="button" id="retryBottom">🔁 Coba Lagi dari Awal</button></div>
+  </section>
+</main>
+<footer>Ingat: gigi taring yang runcing membantu mencengkeram dan merobek makanan. Terus semangat belajar, calon juara sains! 🌟</footer>
+<script>
+const questions = [
+{level:"easy",q:"Gigi taring biasanya berbentuk seperti apa?",opts:["Lebar dan datar","Runcing dan relatif panjang","Sangat kecil dan bulat","Tidak memiliki ujung"],ans:1,why:"Gigi taring memiliki ujung runcing yang membantu mencengkeram dan merobek makanan."},
+{level:"easy",q:"Fungsi utama gigi taring pada hewan pemakan daging adalah ....",opts:["Menghaluskan makanan seperti geraham","Menyaring air","Mencengkeram dan mencabik-cabik makanan","Mengunyah rumput saja"],ans:2,why:"Gigi taring yang kuat dan runcing membantu hewan memegang serta merobek makanan."},
+{level:"easy",q:"Hewan manakah yang memiliki gigi taring?",opts:["Kucing","Kupu-kupu","Cacing tanah","Ubur-ubur"],ans:0,why:"Kucing memiliki gigi taring yang tajam untuk membantu menangkap dan merobek makanan."},
+{level:"easy",q:"Gigi yang terutama digunakan untuk memotong makanan di bagian depan mulut disebut ....",opts:["Gigi geraham","Gigi seri","Gigi taring","Gigi susu"],ans:1,why:"Gigi seri berada di bagian depan dan membantu memotong atau menggigit makanan."},
+{level:"easy",q:"Gigi geraham terutama membantu kita ....",opts:["Mencium makanan","Mendengar suara","Mengunyah dan menghaluskan makanan","Menangkap mangsa dari jauh"],ans:2,why:"Permukaan geraham yang lebih lebar membantu menghancurkan dan menghaluskan makanan."},
+{level:"medium",q:"Anjing menggigit dan merobek sepotong daging. Gigi yang paling membantu merobeknya adalah ....",opts:["Gigi taring","Gigi geraham saja","Gigi seri saja","Semua gigi memiliki bentuk yang sama"],ans:0,why:"Gigi taring yang runcing membantu mencengkeram dan merobek daging."},
+{level:"medium",q:"Mengapa gigi taring hewan pemakan daging umumnya tajam?",opts:["Agar dapat menyimpan air","Agar dapat mencengkeram dan merobek mangsa atau makanan","Agar bisa mengunyah tanpa menggerakkan rahang","Agar bisa mencium bau"],ans:1,why:"Bentuk tajamnya membantu mencengkeram dan merobek makanan; bentuk gigi berkaitan dengan fungsinya."},
+{level:"medium",q:"Pasangan jenis gigi dan fungsi yang tepat adalah ....",opts:["Gigi seri — menghaluskan makanan","Gigi taring — mencengkeram dan merobek makanan","Gigi geraham — mencium bau makanan","Gigi taring — menyaring air"],ans:1,why:"Gigi taring membantu mencengkeram dan merobek makanan. Seri memotong, sedangkan geraham mengunyah dan menghaluskan."},
+{level:"medium",q:"Seekor kucing memegang makanan dengan giginya lalu merobeknya menjadi bagian lebih kecil. Kesimpulan terbaik adalah ....",opts:["Gigi taring membantu merobek makanan","Gigi digunakan untuk bernapas","Gigi taring berfungsi untuk melihat","Semua gigi berfungsi sama"],ans:0,why:"Peristiwa merobek makanan paling sesuai dengan fungsi gigi taring."},
+{level:"medium",q:"Pernyataan manakah yang paling tepat tentang bentuk dan fungsi gigi?",opts:["Semua gigi bentuknya sama karena fungsinya sama","Gigi seri dan geraham tidak punya fungsi","Bentuk gigi yang berbeda membantu melakukan tugas berbeda","Gigi hanya berguna untuk membuat suara"],ans:2,why:"Bentuk gigi berbeda-beda karena memiliki fungsi berbeda, seperti memotong, merobek, dan menghaluskan."},
+{level:"hard",q:"Rani melihat tiga jenis gigi: P berujung pipih seperti pahat, Q runcing, dan R lebar dengan permukaan bergelombang. Pasangan yang paling tepat adalah ....",opts:["P taring, Q geraham, R seri","P seri, Q taring, R geraham","P geraham, Q seri, R taring","P seri, Q geraham, R taring"],ans:1,why:"Gigi seri cenderung pipih untuk memotong, taring runcing untuk merobek, dan geraham lebar untuk menghaluskan."},
+{level:"hard",q:"Seekor hewan mempunyai gigi taring tajam. Apa yang dapat kita simpulkan dengan paling hati-hati?",opts:["Hewan itu pasti hanya makan tumbuhan","Gigi taringnya dapat membantu mencengkeram atau merobek makanan","Hewan itu tidak membutuhkan gigi lain","Hewan itu pasti hidup di air"],ans:1,why:"Bentuk gigi memberi petunjuk tentang fungsi, tetapi satu ciri saja tidak cukup untuk menyimpulkan seluruh kebiasaan hidup hewan."},
+{level:"hard",q:"Bima berkata, “Gigi taring berguna untuk menghaluskan makanan.” Tanggapan yang paling tepat adalah ....",opts:["Benar, karena semua gigi memiliki fungsi sama","Kurang tepat; gigi taring membantu mencengkeram dan merobek, sedangkan geraham menghaluskan","Benar, karena gigi taring berbentuk lebar dan datar","Kurang tepat; gigi taring digunakan untuk bernapas"],ans:1,why:"Gigi taring runcing untuk mencengkeram dan merobek; permukaan geraham yang lebar membantu mengunyah dan menghaluskan."},
+{level:"hard",q:"Seekor buaya memiliki banyak gigi runcing. Pernyataan yang paling sesuai dengan materi ini adalah ....",opts:["Gigi runcing membantu menangkap dan menahan mangsa","Gigi runcing dipakai untuk menghaluskan daun","Buaya tidak menggunakan gigi saat makan","Semua gigi buaya berbentuk seperti geraham manusia"],ans:0,why:"Gigi buaya yang tajam membantu menangkap dan menahan mangsa. Jangan menyimpulkan bahwa semua giginya melakukan fungsi geraham."},
+{level:"hard",q:"Dalam soal olimpiade tertulis: “Anjing, kucing, dan buaya memiliki gigi taring. Fungsi gigi tersebut untuk ....” Strategi terbaik adalah ....",opts:["Memilih jawaban terpanjang","Mengingat bentuk gigi dan mencocokkannya dengan fungsi","Memilih opsi pertama tanpa membaca","Memilih fungsi gigi geraham"],ans:1,why:"Trik olimpiade: cari kata kunci “gigi taring”, ingat bentuknya yang runcing, lalu cocokkan dengan fungsi mencengkeram dan mencabik-cabik makanan."},
+{level:"hard",q:"Seekor hewan memakai gigi depan untuk menggigit potongan makanan, gigi runcing untuk merobek, dan gigi belakang untuk menghancurkan makanan. Kesimpulan yang tepat adalah ....",opts:["Jenis gigi memiliki bentuk dan fungsi yang berbeda","Hanya gigi taring yang berfungsi","Gigi belakang dipakai untuk melihat","Semua gigi hanya untuk memotong"],ans:0,why:"Gigi seri, taring, dan geraham bekerja dengan fungsi berbeda. Hewan menggunakan susunan giginya sesuai kebutuhan makan."}
+];
+const letters=["A","B","C","D"];
+const containers={easy:document.getElementById("easyQuestions"),medium:document.getElementById("mediumQuestions"),hard:document.getElementById("hardQuestions")};
+const levelNames={easy:"MUDAH",medium:"SEDANG",hard:"SULIT"};
+questions.forEach((item,i)=>{
+ const card=document.createElement("article");card.className="question "+item.level;card.id="qcard"+i;
+ card.innerHTML=`<div class="qhead"><div class="num">${i+1}</div><div class="qtext">${item.q}</div><span class="level">${levelNames[item.level]}</span></div><div class="options">${item.opts.map((opt,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"><span class="letter">${letters[j]}.</span><span>${opt}</span></label>`).join("")}</div>`;
+ containers[item.level].appendChild(card);
+});
+function updateProgress(){
+ const count=questions.filter((_,i)=>document.querySelector(`input[name="q${i}"]:checked`)).length;
+ document.getElementById("progressText").textContent=`${count} dari ${questions.length} dijawab`;
+ document.getElementById("progress").style.width=(count/questions.length*100)+"%";
+}
+document.getElementById("quizForm").addEventListener("change",updateProgress);
+function submitQuiz(){
+ const unanswered=questions.map((_,i)=>i).filter(i=>!document.querySelector(`input[name="q${i}"]:checked`));
+ if(unanswered.length){
+   const go=confirm(`Masih ada ${unanswered.length} soal yang belum dijawab. Tetap nilai sekarang?\\nPilih “Batal” untuk kembali melengkapi jawaban.`);
+   if(!go){document.getElementById("qcard"+unanswered[0]).scrollIntoView({behavior:"smooth",block:"center"});return;}
+ }
+ let score=0;const review=document.getElementById("review");review.innerHTML="";
+ questions.forEach((item,i)=>{
+   const selected=document.querySelector(`input[name="q${i}"]:checked`);
+   const val=selected?Number(selected.value):-1;const ok=val===item.ans;if(ok)score++;
+   const div=document.createElement("div");div.className="review-item "+(ok?"correct":"wrong");
+   div.innerHTML=`<h3>${ok?"✅":"💡"} Soal ${i+1} — ${levelNames[item.level]}</h3><p><b>Jawabanmu:</b> ${val<0?"Belum dijawab":letters[val]+". "+item.opts[val]}</p><p><b>Jawaban benar:</b> ${letters[item.ans]+". "+item.opts[item.ans]}</p><p><b>Penjelasan:</b> ${item.why}</p>`;
+   review.appendChild(div);
+ });
+ document.getElementById("score").textContent=`${score} / ${questions.length} (${Math.round(score/questions.length*100)}%)`;
+ let note=score>=13?"Luar biasa! Kamu sudah menjadi detektif gigi yang hebat! 🏆":score>=10?"Bagus sekali! Pelajari kembali penjelasan yang belum tepat, lalu coba lagi. 🌟":score>=7?"Usaha yang bagus! Baca kembali materi gigi seri, taring, dan geraham. Kamu pasti makin jago! 💪":"Jangan menyerah! Belajar sedikit demi sedikit, lalu coba lagi. Setiap latihan membuatmu lebih hebat! 🌈";
+ document.getElementById("resultNote").textContent=note;
+ document.getElementById("result").style.display="block";
+ document.getElementById("submitBtn").disabled=true;document.getElementById("submitBtn").style.opacity=".6";
+ document.getElementById("result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function resetQuiz(){
+ document.getElementById("quizForm").reset();
+ document.getElementById("result").style.display="none";
+ document.getElementById("submitBtn").disabled=false;document.getElementById("submitBtn").style.opacity="1";
+ questions.forEach((_,i)=>{document.getElementById("qcard"+i).style.outline="";});
+ updateProgress();window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("submitBtn").addEventListener("click",submitQuiz);
+document.getElementById("resetBtn").addEventListener("click",resetQuiz);
+document.getElementById("retryBottom").addEventListener("click",resetQuiz);
+updateProgress();
+</script>
+</body>
+</html>
